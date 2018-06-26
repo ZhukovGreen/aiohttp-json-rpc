@@ -385,11 +385,11 @@ class JsonRpcClientContext:
 
     async def __aenter__(self):
         if self._test_client:
-            test_server = await self._test_client(
+            test_client = await self._test_client(
                 await self._application()
             )
             self._rpc_url = URL(
-                f'ws://{test_server.host}:{test_server.port}{self._rpc_url}'
+                f'ws://{test_client.host}:{test_client.port}{self._rpc_url}'
             )
         await self._rpc_client.connect_url(
             url=self._rpc_url,
